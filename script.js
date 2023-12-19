@@ -1,14 +1,22 @@
 var isDate = function (input) {
-  // Check if the input is a string
-  if (typeof input === 'string') {
-    // Attempt to create a Date object from the string
-    const parsedDate = new Date(input);
-
-    // Check if the parsedDate is a valid date and the input is not an empty string
-    return !isNaN(parsedDate) && input.trim() !== '';
+   // If the input is already a Date object and not NaN
+  if (input instanceof Date && !isNaN(input)) {
+    return true;
   }
 
-  // Return false for other types of input
+  // If the input is a string, attempt to parse it into a Date
+  if (typeof input === 'string') {
+    const parsedDate = new Date(input);
+    return !isNaN(parsedDate);
+  }
+
+  // If the input is a number, assume it is a timestamp
+  if (typeof input === 'number') {
+    const timestampDate = new Date(input);
+    return !isNaN(timestampDate);
+  }
+
+  // If none of the above conditions are met, return false
   return false;
 };
 
